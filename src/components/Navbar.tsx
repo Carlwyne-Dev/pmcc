@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useScroll } from "framer-motion";
-import { Home, Compass, Calendar, Image, Mail, Facebook, Youtube } from "lucide-react";
+import { Home, Compass, Calendar, Image as ImageIcon, Mail, Facebook, Youtube } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,7 +36,7 @@ export default function Navbar() {
     { name: "Home", path: "/", icon: <Home size={18} /> },
     { name: "About", path: "/about", icon: <Compass size={18} /> },
     { name: "Schedule", path: "/schedule", icon: <Calendar size={18} /> },
-    { name: "Gallery", path: "/gallery", icon: <Image size={18} /> },
+    { name: "Gallery", path: "/gallery", icon: <ImageIcon size={18} /> },
     { name: "Contact", path: "/contact", icon: <Mail size={18} /> },
   ];
 

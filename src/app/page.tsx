@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import Button from "@/components/Button";
 import SectionTag from "@/components/SectionTag";
-import Badge from "@/components/Badge";
 import Reveal from "@/components/Reveal";
 import Link from "next/link";
 import { ZoomParallax } from "@/components/ui/zoom-parallax";

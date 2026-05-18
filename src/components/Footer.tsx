@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-const cn = (...inputs: any[]) => inputs.filter(Boolean).join(" ");
+const cn = (...inputs: unknown[]) => inputs.filter(Boolean).join(" ");
 import { Mail, Phone, MapPin, Facebook, Youtube, Heart } from "lucide-react";
 
 // ==========================================
@@ -172,8 +172,7 @@ export default function Footer() {
     offset: ["start end", "end end"],
   });
 
-  // Dynamic Liquid Morph Curve Height (Steep dome ➔ perfectly flat)
-  const curveHeight = useTransform(scrollYProgress, [0, 1], [100, 0]);
+
   
   // Parallax Float-up Translation of Footer Content (shifted down initially, rises to 0)
   const contentY = useTransform(scrollYProgress, [0, 1], [80, 0]);
