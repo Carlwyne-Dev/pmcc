@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #0B1F3A;
+  --yellow: #FFD93D;
+  --white: #FFFFFF;
+  --ink: #0D0D0D;
+  --muted: #6B7280;
+  --surface: #F9F8F6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Offset for sticky navbar */
+    overflow-x: hidden;
+  }
+  
+  body {
+    @apply bg-white text-ink font-sans antialiased selection:bg-yellow selection:text-navy;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Hide native browser scrollbar globally while maintaining scrolling functionality */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
