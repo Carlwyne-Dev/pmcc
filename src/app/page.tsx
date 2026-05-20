@@ -750,7 +750,7 @@ export default function Home() {
             <div className="w-[2px] h-2.5 bg-neutral-400/70 -mt-0.5" />
           </div>
           <p className="font-serif italic text-xs text-navy/80 leading-relaxed">
-            "Thy word is a lamp unto my feet, and a light unto my path."
+            &quot;Thy word is a lamp unto my feet, and a light unto my path.&quot;
           </p>
           <span className="font-sans font-bold text-[9px] tracking-wider text-navy/40 text-right block mt-3">
             — PSALM 119:105
