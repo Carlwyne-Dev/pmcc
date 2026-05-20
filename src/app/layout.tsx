@@ -4,7 +4,6 @@ import { Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import GradualBlur from "@/components/ui/GradualBlur";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -63,17 +62,6 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
-        <GradualBlur
-          target="page"
-          position="bottom"
-          height="4rem"
-          strength={2}
-          divCount={5}
-          curve="bezier"
-          exponential
-          opacity={1}
-          zIndex={40}
-        />
       </body>
     </html>
   );

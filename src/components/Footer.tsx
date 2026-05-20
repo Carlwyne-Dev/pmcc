@@ -232,7 +232,7 @@ export default function Footer() {
   return (
     <footer 
       ref={footerContainerRef} 
-      className="bg-navy relative h-fit pt-28 pb-4 mt-[-60px] rounded-t-[3.5rem] md:rounded-t-[4.5rem] border-t border-yellow/15 text-white/70 overflow-visible z-20 shadow-[0_-30px_60px_rgba(0,0,0,0.35)]"
+      className="bg-navy relative h-fit pt-28 pb-4 mt-[-60px] rounded-t-[3.5rem] md:rounded-t-[4.5rem] border-t border-yellow/15 text-white/70 overflow-visible z-20"
     >
 
       {/* Brand & Content Container (with Parallax Float-up inside the floating card) */}
