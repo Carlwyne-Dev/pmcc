@@ -16,7 +16,8 @@ interface GalleryItem {
   images: string[];
 }
 
-const GalleryCard = ({ item }: { item: GalleryItem }) => {
+const GalleryCard = React.forwardRef<HTMLDivElement, { item: GalleryItem }>(
+  ({ item }, ref) => {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -56,6 +57,7 @@ const GalleryCard = ({ item }: { item: GalleryItem }) => {
 
   return (
     <motion.div
+      ref={ref}
       layout
       initial="initial"
       animate="animate"
@@ -145,7 +147,8 @@ const GalleryCard = ({ item }: { item: GalleryItem }) => {
       </div>
     </motion.div>
   );
-};
+});
+GalleryCard.displayName = "GalleryCard";
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
