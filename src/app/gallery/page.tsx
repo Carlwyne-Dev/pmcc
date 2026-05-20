@@ -182,6 +182,18 @@ export default function Gallery() {
         "/assets/sunday_worship.jpg",
         "/assets/gallery_2.jpg"
       ]
+    },
+    {
+      id: 3,
+      title: "PMCC 50th Golden Anniversary",
+      cat: "events",
+      ratio: "aspect-[4/3]",
+      images: [
+        "/assets/50th_1.png",
+        "/assets/50th_2.png",
+        "/assets/50th_3.png",
+        "/assets/50th_4.png"
+      ]
     }
   ];
 
