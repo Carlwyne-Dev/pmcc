@@ -21,7 +21,7 @@ export default function Schedule() {
     {
       title: "Sunday School",
       time: "Sunday • 8:00 AM - 9:00 AM",
-      desc: "Systematic doctrine training and interactive bible classes for all age groups, focused on building clear scripture conviction.",
+      desc: "Doctrine training and interactive bible classes for all age groups, focused on building clear scripture conviction.",
       location: "Pulupandan Main Chapel",
       icon: <BookOpen className="text-navy" size={28} />,
     },
@@ -35,7 +35,7 @@ export default function Schedule() {
     {
       title: "Midweek Bible Study",
       time: "Tuesday • 7:00 PM",
-      desc: "Systematic doctrine teachings and systematic scripture-by-scripture studies aimed at establishing solid biblical literacy and personal conviction.",
+      desc: "Doctrine teachings and scripture-by-scripture studies aimed at establishing solid biblical literacy and personal conviction.",
       location: "Pulupandan Main Chapel",
       icon: <BookMarked className="text-navy" size={28} />,
     },
@@ -54,8 +54,9 @@ export default function Schedule() {
       <PageHero
         title="Gather with us"
         tag="WEEKLY SCHEDULE"
-        subtitle="Our doors are open to everyone. Join us this week for Sunday School, worship, systematic Bible study, and corporate prayer."
-        variant="light"
+        subtitle="Our doors are open to everyone. Join us this week for Sunday School, worship, Bible study, and corporate prayer."
+        variant="dark"
+        bgImage="/assets/gathering.jpg"
       />
 
       {/* 2. Expanded Weekly Schedule */}
@@ -162,7 +163,7 @@ export default function Schedule() {
             <Reveal delay={0.4}>
               <div className="flex gap-4">
                 <Button
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/people/PMCC-4th-Watch-Pulupandan-Young-Watchers/100066300444799/"
                   variant="ghost-navy"
                   className="flex items-center gap-2"
                 >

@@ -7,6 +7,7 @@ interface PageHeroProps {
   subtitle?: string;
   tag?: string;
   variant?: "dark" | "light";
+  bgImage?: string;
 }
 
 export default function PageHero({
@@ -14,15 +15,26 @@ export default function PageHero({
   subtitle,
   tag,
   variant = "dark",
+  bgImage,
 }: PageHeroProps) {
   const isDark = variant === "dark";
 
   return (
     <section
       className={`relative pt-32 pb-24 md:pt-40 md:pb-32 flex flex-col justify-center overflow-hidden ${
-        isDark ? "bg-navy text-white" : "bg-surface text-ink"
+        isDark || bgImage ? "bg-navy text-white" : "bg-surface text-ink"
       }`}
     >
+      {bgImage && (
+        <>
+          <img 
+            src={bgImage} 
+            alt="Hero Background" 
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+          <div className="absolute inset-0 bg-navy/80 z-0" />
+        </>
+      )}
       <div className="container mx-auto px-6 md:px-12 lg:px-20 z-10 relative">
         <div className="max-w-3xl">
           {tag && (

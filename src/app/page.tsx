@@ -10,6 +10,8 @@ import {
   MapPin,
   Tv,
   BookMarked,
+  Play,
+  X,
 } from "lucide-react";
 import Button from "@/components/Button";
 import SectionTag from "@/components/SectionTag";
@@ -19,32 +21,32 @@ import { ZoomParallax } from "@/components/ui/zoom-parallax";
 
 const galleryImages = [
   {
+    src: "/assets/chapel.jpg",
+    alt: "Church Chapel Exterior",
+  },
+  {
+    src: "/assets/gallery_1.jpg",
+    alt: "Church Family Fellowship Gathering",
+  },
+  {
+    src: "/assets/gallery_2.jpg",
+    alt: "Active Scripture Study",
+  },
+  {
+    src: "/assets/worship.jpg",
+    alt: "Congregation Worship",
+  },
+  {
     src: "/assets/sunday_worship.jpg",
     alt: "PMCC Sanctuary Worship",
   },
   {
-    src: "https://images.unsplash.com/photo-1515162305285-0293e4767cc2?q=80&w=1200&auto=format&fit=crop",
-    alt: "Congregation Singing Praise",
+    src: "/assets/gathering.jpg",
+    alt: "Church Gathering and Fellowship",
   },
   {
-    src: "https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=800&auto=format&fit=crop",
-    alt: "Active Scripture Study",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=1200&auto=format&fit=crop",
-    alt: "Open Bible Reflections",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop",
-    alt: "Church Family Fellowship Gathering",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=1200&auto=format&fit=crop",
-    alt: "Morning Sunbeams in Chapel",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop",
-    alt: "PMCC Youth Fellowship Joy",
+    src: "/assets/homefree.jpg",
+    alt: "Home Free Global Crusade Event",
   },
 ];
 
@@ -52,8 +54,9 @@ const heroCards = [
   {
     title: "4th Watch Chapel",
     caption: "Pulupandan, Negros Occidental",
-    gradient: "from-navy/60 via-navy/30 to-transparent",
-    bg: "bg-gradient-to-br from-amber-100 to-amber-50",
+    gradient: "from-navy/80 via-navy/50 to-transparent",
+    bg: "bg-navy",
+    img: "/assets/pmcc.png",
   },
   {
     title: "Sunday Worship",
@@ -77,6 +80,7 @@ export default function Home() {
   const [activeMobileIndices, setActiveMobileIndices] = useState<number[]>([]);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -184,7 +188,46 @@ export default function Home() {
          1. HERO SECTION (VIDEO BACKGROUND + CARD DECK)
          ========================================== */}
       <section className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden w-full">
-        
+
+        {/* Video Modal */}
+        <AnimatePresence>
+          {showVideoModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md p-4"
+              onClick={() => setShowVideoModal(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.8)] border border-white/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button */}
+                <button
+                  onClick={() => setShowVideoModal(false)}
+                  className="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-black/60 border border-white/10 text-white/80 hover:text-white hover:bg-black/80 transition-all duration-200 backdrop-blur-sm"
+                >
+                  <X size={16} />
+                </button>
+                {/* Video with audio (no muted) */}
+                <video
+                  autoPlay
+                  controls
+                  playsInline
+                  className="w-full h-full object-cover"
+                  src="/assets/hero_bg.mp4"
+                />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Fullscreen Video Background */}
         <video
           autoPlay
@@ -196,7 +239,20 @@ export default function Home() {
           <source src="/assets/hero_bg.mp4" type="video/mp4" />
         </video>
 
-        {/* Dark gradient overlay for text readability */}
+        {/* Play Video Button — bottom-right corner of hero */}
+        <motion.button
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          onClick={() => setShowVideoModal(true)}
+          className="group absolute bottom-24 right-6 md:right-12 lg:right-20 z-20 flex items-center gap-3 text-white/60 hover:text-white transition-colors duration-300"
+        >
+          <span className="font-sans text-[10px] tracking-widest uppercase font-bold hidden sm:block">Watch Video</span>
+          <span className="relative flex items-center justify-center w-12 h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm group-hover:bg-yellow/20 group-hover:border-yellow/50 transition-all duration-300">
+            <Play size={16} className="text-white ml-0.5 group-hover:text-yellow transition-colors duration-300" fill="currentColor" />
+            <span className="absolute inset-0 rounded-full border border-white/30 animate-ping opacity-25" />
+          </span>
+        </motion.button>
         <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/70 to-navy/50 z-[1]" />
 
         {/* Hero content */}
@@ -365,7 +421,7 @@ export default function Home() {
             </Link>
             <div className="w-[1px] h-3 bg-white/20" />
             <Link
-              href="https://youtube.com"
+              href="https://www.youtube.com/@pmcc4thwatchofficial"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white flex items-center gap-2 transition-colors duration-300"
@@ -645,93 +701,169 @@ export default function Home() {
       </section>
 
       {/* ==========================================
-         4. EVENTS SNAPSHOT (MAGAZINE BULLETIN)
+         4. EVENTS SNAPSHOT (STICKY NOTES / CORK BOARD)
          ========================================== */}
-      <section className="bg-surface/30 py-24 border-b border-neutral-100">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-12 lg:px-20">
+      <section className="py-28 border-b border-neutral-200/60 overflow-hidden relative"
+        style={{
+          background: "radial-gradient(ellipse at 60% 40%, #c8a97e 0%, #b8955e 40%, #a07848 100%)",
+        }}
+      >
+        {/* Cork texture overlay */}
+        <div className="absolute inset-0 opacity-[0.18] pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='27' cy='3' r='0.8'/%3E%3Ccircle cx='47' cy='11' r='1.2'/%3E%3Ccircle cx='13' cy='23' r='0.6'/%3E%3Ccircle cx='37' cy='19' r='1'/%3E%3Ccircle cx='53' cy='31' r='0.8'/%3E%3Ccircle cx='3' cy='43' r='1'/%3E%3Ccircle cx='23' cy='51' r='0.6'/%3E%3Ccircle cx='43' cy='47' r='1.2'/%3E%3Ccircle cx='57' cy='57' r='0.8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="max-w-[1300px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+          {/* Header */}
           <div className="mb-16">
             <Reveal delay={0.1}>
               <SectionTag theme="yellow">LATEST NOTICES</SectionTag>
             </Reveal>
             <Reveal delay={0.2}>
-              <h2 className="font-serif font-light text-3xl md:text-4xl lg:text-5xl tracking-tight text-navy uppercase mt-6">
+              <h2 className="font-serif font-light text-3xl md:text-4xl lg:text-5xl tracking-tight text-white/90 uppercase mt-6 drop-shadow-sm">
                 Upcoming Highlights
               </h2>
             </Reveal>
           </div>
 
-          {/* Clean Magazine Bulletin List */}
-          <div className="flex flex-col gap-4 mb-12">
+          {/* Sticky Notes Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
             {[
               {
-                num: "01",
-                type: "WEEKLY",
+                tags: ["WEEKLY", "WORSHIP"],
                 title: "Sunday Worship Service",
-                desc: "Our main weekly gathering for congregational worship, prayer, and Bible teaching.",
-                loc: "Pulupandan Chapter Chapel",
+                excerpt: "\"Come, let us bow down in worship, let us kneel before the Lord our Maker...\"",
+                time: "Every Sunday · 9 AM – 12 PM",
+                color: "#FEFCE8",
+                rotate: "-2.2deg",
+                pinColor: "#E53E3E",
+                offset: "lg:mt-0",
               },
               {
-                num: "02",
-                type: "YOUTH",
+                tags: ["WEEKLY", "SCRIPTURE"],
+                title: "Bible Study",
+                excerpt: "\"Your word is a lamp for my feet, a light on my path...\"",
+                time: "Every Tuesday · 7 PM",
+                color: "#F0FDF4",
+                rotate: "1.8deg",
+                pinColor: "#2B6CB0",
+                offset: "lg:mt-8",
+              },
+              {
+                tags: ["YOUTH", "FELLOWSHIP"],
                 title: "Youth Service & Fellowship",
-                desc: "A weekly gathering for young people to study scripture, fellowship, and sing together.",
-                loc: "Pulupandan Chapter Chapel",
+                excerpt: "\"Don't let anyone look down on you because you are young...\"",
+                time: "Annual · TBA",
+                color: "#FFF5F5",
+                rotate: "-1.1deg",
+                pinColor: "#276749",
+                offset: "lg:mt-4",
               },
               {
-                num: "03",
-                type: "OUTREACH",
-                title: "Community Outreach",
-                desc: "Our local community program helping families in Pulupandan with food sharing and basic support.",
-                loc: "Pulupandan, Negros Occidental",
+                tags: ["PRAYER", "MIDWEEK"],
+                title: "Midweek Prayer Meeting",
+                excerpt: "\"The prayer of a righteous person is powerful and effective...\"",
+                time: "Every Thursday · 7 PM",
+                color: "#FAF5FF",
+                rotate: "-1.7deg",
+                pinColor: "#E53E3E",
+                offset: "lg:mt-6",
               },
-            ].map((event, index) => {
-              return (
-                <Reveal key={event.title} delay={index * 0.08} yOffset={10}>
-                  <motion.div 
-                    whileHover={{ y: -2 }}
-                    className="group border border-neutral-100 hover:border-transparent bg-white/40 hover:bg-white p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 hover:shadow-xl hover:shadow-navy/5 px-6 md:px-8 transition-all duration-500 rounded-2xl relative overflow-hidden select-none cursor-pointer"
+              {
+                tags: ["EVENTS", "SPECIAL"],
+                title: "Home Free Global Crusade Bacolod",
+                excerpt: "\"Go into all the world and preach the gospel to all creation...\"",
+                time: "Special Event",
+                color: "#FFFFF0",
+                rotate: "1.3deg",
+                pinColor: "#2B6CB0",
+                offset: "lg:-mt-2",
+              },
+            ].map((card, i) => (
+              <Reveal key={card.title} delay={i * 0.07} yOffset={15}>
+                <motion.div
+                  whileHover={{ rotate: 0, y: -8, scale: 1.03 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className={`relative cursor-pointer select-none ${card.offset}`}
+                  style={{
+                    rotate: card.rotate,
+                    transformOrigin: "top center",
+                  }}
+                >
+                  {/* Pushpin */}
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
+                    <div
+                      className="w-5 h-5 rounded-full border-2 border-white/60 shadow-md"
+                      style={{ background: card.pinColor }}
+                    />
+                    <div className="w-[3px] h-3 rounded-b-full bg-neutral-400/70 -mt-0.5" />
+                  </div>
+
+                  {/* Note card */}
+                  <div
+                    className="rounded-sm p-6 pt-8"
+                    style={{
+                      background: card.color,
+                      boxShadow: "3px 6px 18px rgba(0,0,0,0.22), 0 2px 4px rgba(0,0,0,0.12)",
+                    }}
                   >
-                    {/* Active Left Golden Sliding Edge accent */}
-                    <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-yellow transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-center" />
+                    {/* Top ruled line like a notepad */}
+                    <div className="w-full h-[2px] bg-navy/8 mb-4 rounded-full" />
 
-                    {/* Left: Classic Bulletin Num */}
-                    <div className="flex items-center gap-6 min-w-[120px]">
-                      <span className="font-serif italic text-sm text-navy/20 font-bold group-hover:text-yellow/40 transition-colors duration-300">
-                        {event.num}
-                      </span>
-                      <span className="font-sans font-extrabold text-[8px] tracking-widest text-navy group-hover:text-yellow bg-white border border-neutral-150 group-hover:border-yellow/30 px-3 py-1.5 rounded-lg uppercase transition-all duration-300 shadow-sm">
-                        {event.type}
-                      </span>
+                    {/* Tags */}
+                    <div className="flex items-center gap-1 mb-3 flex-wrap">
+                      {card.tags.map((tag, ti) => (
+                        <span key={tag} className="font-sans font-black text-[8px] tracking-widest uppercase text-navy/40">
+                          {tag}{ti < card.tags.length - 1 && <span className="ml-1 text-navy/20">|</span>}
+                        </span>
+                      ))}
                     </div>
 
-                    {/* Center: Title / Details */}
-                    <div className="flex-grow max-w-xl">
-                      <h3 className="font-sans font-extrabold text-xs text-navy uppercase tracking-widest mb-2 transition-colors duration-300">
-                        {event.title}
-                      </h3>
-                      <p className="font-sans text-[11px] text-muted group-hover:text-ink/80 transition-colors duration-300 mb-3 leading-relaxed">
-                        {event.desc}
-                      </p>
-                      <div className="flex items-center gap-1.5 text-[9px] text-navy/40 group-hover:text-navy/60 font-sans tracking-widest uppercase font-bold transition-colors duration-300">
-                        <MapPin size={11} className="text-yellow mr-1" />
-                        <span>{event.loc}</span>
-                      </div>
+                    {/* Title */}
+                    <h3 className="font-serif font-normal text-lg md:text-xl text-navy leading-snug mb-4">
+                      {card.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="font-sans text-[11px] text-navy/55 leading-relaxed italic mb-5">
+                      {card.excerpt}
+                    </p>
+
+                    {/* Ruled lines decoration */}
+                    <div className="space-y-2 mb-5 opacity-20">
+                      <div className="h-[1px] bg-navy/40 rounded" />
+                      <div className="h-[1px] bg-navy/40 rounded w-3/4" />
                     </div>
 
-                    {/* Right: Minimal Arrow */}
-                    <motion.div 
-                      whileHover={{ scale: 1.05 }}
-                      className="w-10 h-10 rounded-full border border-neutral-200 group-hover:border-yellow group-hover:bg-yellow group-hover:text-navy flex items-center justify-center text-navy/60 transition-all duration-500 self-end md:self-center shadow-sm group-hover:translate-x-1 group-hover:shadow-md"
-                    >
-                      <ArrowRight size={13} className="transform group-hover:translate-x-0.5 transition-transform duration-300" />
-                    </motion.div>
-                  </motion.div>
-                </Reveal>
-              );
-            })}
+                    {/* Time */}
+                    <div className="flex items-center gap-2 text-[9px] font-sans font-extrabold tracking-widest uppercase text-navy/35">
+                      <Sun size={9} className="text-amber-500 shrink-0" />
+                      {card.time}
+                    </div>
+                  </div>
+                </motion.div>
+              </Reveal>
+            ))}
           </div>
+
+          {/* CTA */}
+          <Reveal delay={0.5}>
+            <div className="text-center mt-20">
+              <Link
+                href="/schedule"
+                className="font-sans font-extrabold text-[10px] tracking-widest uppercase text-white/60 hover:text-white transition-all duration-300 inline-flex items-center gap-2.5 border-b border-white/20 hover:border-white/60 pb-1.5"
+              >
+                <span>View full schedule</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
+
+
 
       {/* ==========================================
          5. GALLERY SNAPSHOT (VISUAL ARCHIVE)
@@ -769,7 +901,7 @@ export default function Home() {
         <div className="relative w-full z-0">
           {isMobileView ? (
             /* MOBILE GALLERY VIEW: Premium Horizontal Snapping Swiper */
-            <div className="w-full overflow-hidden py-8">
+            <div className="w-full overflow-hidden py-8 relative">
               <div 
                 className="w-full overflow-x-auto flex gap-4 px-6 snap-x snap-mandatory scroll-smooth" 
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -787,21 +919,13 @@ export default function Home() {
                     {/* Luxury dark gradient fade overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/95 via-[#0A1128]/25 to-transparent pointer-events-none" />
                     
-                    {/* Caption Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 z-10">
-                      <span className="text-[9px] uppercase tracking-[0.18em] font-sans font-black text-yellow">
-                        {String(index + 1).padStart(2, '0')} / {String(galleryImages.length).padStart(2, '0')}
-                      </span>
-                      {alt && (
-                        <h4 className="text-xs font-sans font-extrabold uppercase text-white tracking-wider mt-1">
-                          {alt}
-                        </h4>
-                      )}
-                    </div>
                   </div>
                 ))}
               </div>
               
+              {/* Smooth Frosted Glass Fading Blur Mask at the bottom of mobile swiper */}
+              <div className="absolute bottom-[4.5rem] left-0 right-0 h-16 pointer-events-none bg-gradient-to-t from-black via-black/40 to-transparent z-20" />
+
               {/* Soft swipe helper indicator */}
               <div className="flex justify-center items-center gap-1.5 mt-6 opacity-60">
                 <div className="w-8 h-[2px] bg-yellow rounded-full" />

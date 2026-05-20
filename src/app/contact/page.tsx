@@ -15,6 +15,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -24,18 +25,51 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setLoading(true);
-    // Simulate API call for V1 (e.g., Formspree or Resend mock)
-    setTimeout(() => {
+    setError(null);
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setError("Email service configuration is missing. Please set NEXT_PUBLIC_EMAILJS_SERVICE_ID, NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, and NEXT_PUBLIC_EMAILJS_PUBLIC_KEY in your environment variables.");
       setLoading(false);
-      setSubmitted(true);
-      setFormData({ name: "", email: "", message: "" });
-    }, 1200);
+      return;
+    }
+
+    try {
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        time: new Date().toLocaleString(),
+      };
+
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+
+      if (result.status === 200) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setError("Failed to send message. Please verify your EmailJS keys.");
+      }
+    } catch (err: any) {
+      setError(err?.text || "An unexpected error occurred while sending the email. Please verify your keys.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (
@@ -55,6 +89,7 @@ export default function Contact() {
         tag="CONTACT US"
         subtitle="Have questions? Want to connect with our local ministry? We would love to hear from you."
         variant="dark"
+        bgImage="/assets/pmcc.png"
       />
 
       {/* 2. Contact Grid Dashboard */}
@@ -123,7 +158,9 @@ export default function Contact() {
                         Email Address
                       </h4>
                       <p className="font-sans text-xs text-muted">
-                        pulupandan@pmcc4thwatch.org
+                        <a href="mailto:pmcc4wpulup@gmail.com" className="hover:text-navy transition-colors">
+                          pmcc4wpulup@gmail.com
+                        </a>
                       </p>
                     </div>
                   </div>
@@ -150,7 +187,7 @@ export default function Contact() {
               <Reveal delay={0.8}>
                 <div className="border-t border-navy/10 pt-8">
                   <a
-                    href="https://facebook.com"
+                    href="https://www.facebook.com/people/PMCC-4th-Watch-Pulupandan-Young-Watchers/100066300444799/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 font-sans font-bold text-xs tracking-wider uppercase text-navy hover:text-yellow transition-colors duration-300"
@@ -242,6 +279,12 @@ export default function Contact() {
                       />
                     </div>
 
+                    {error && (
+                      <div className="text-xs font-semibold text-red-500 bg-red-50 border border-red-100 rounded-md p-3.5 font-sans">
+                        {error}
+                      </div>
+                    )}
+
                     <Button
                       type="submit"
                       disabled={loading}
@@ -305,7 +348,7 @@ export default function Contact() {
           <Reveal delay={0.3}>
             <div className="w-full aspect-[21/9] rounded-large overflow-hidden shadow-premium border border-navy/10 relative bg-surface">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15655.434443729906!2d122.78201245000001!3d10.511317!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aec0eb48dc46ab%3A0x86134b2210874e4c!2sPulupandan%2C%20Negros%20Occidental!5e0!3m2!1sen!2sph!4v1716000000000!5m2!1sen!2sph"
+                src="https://maps.google.com/maps?q=PMCC%204th%20Watch%20Pulupandan,%20Negros%20Occidental&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

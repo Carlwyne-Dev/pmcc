@@ -50,6 +50,9 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 						</motion.div>
 					);
 				})}
+
+				{/* Smooth Frosted Glass Fading Blur Mask at the bottom */}
+				<div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none bg-gradient-to-t from-black via-black/80 to-transparent z-20" />
 			</div>
 		</div>
 	);

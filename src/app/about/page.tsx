@@ -11,18 +11,33 @@ export default function About() {
   const beliefs = [
     {
       num: "01",
-      title: "The Apostolic Gospel",
-      desc: "We hold firmly to apostolic teachings — faith, repentance, full water baptism in the name of the Lord Jesus Christ, and receiving the gift of the Holy Spirit. We believe the church must stand on the foundation of the apostles and prophets.",
+      title: "The Bible",
+      desc: "In the Holy Scriptures, as verbally inspired by God and the sole authority for faith, life, and conduct.",
     },
     {
       num: "02",
-      title: "Holiness in Living",
-      desc: "God calls us to set-apart lives, completely transformed by His grace. True holiness is not defined by rigid legalistic rules, but by a heart fully surrendered to God, manifesting love, purity of conduct, and spiritual devotion.",
+      title: "Godhead",
+      desc: "In God as Father, Son, and Holy Spirit. The Son, Jesus Christ, lived sinless, died, rose again, and will return to receive His followers.",
     },
     {
       num: "03",
-      title: "Mission & Service",
-      desc: "The Great Commission drives us. We believe that we are saved to serve—taking the message of salvation to our local community in Pulupandan and to the ends of the earth. We boldly proclaim the gospel and prepare the bride for the Lord's return.",
+      title: "Salvation",
+      desc: "In Salvation attained by grace through faith, not of works. That believers have been atoned, regenerated, forgiven, justified and to be glorified by Christ.",
+    },
+    {
+      num: "04",
+      title: "Holiness",
+      desc: "In living a holy and godly life, not involved in worldly vices, whether it is the lust of the eyes, lust of the flesh, pride of life, and other acts that defile the body.",
+    },
+    {
+      num: "05",
+      title: "Apostolic Church",
+      desc: "In one and only apostolic church of Christ, composed of true disciples washed and forgiven; living under the guidance of the Holy Spirit.",
+    },
+    {
+      num: "06",
+      title: "The 4th Watch",
+      desc: "We believe in the imminence of Christ’s return in our time—the 4th watch. True believers waiting for this blessed hope must live in holiness and service.",
     },
   ];
 
@@ -36,6 +51,7 @@ export default function About() {
         tag="ABOUT US"
         subtitle="A local congregation of the Pentecostal Missionary Church of Christ (4th Watch), established to serve and make faith come alive in Pulupandan."
         variant="dark"
+        bgImage="/assets/chapel.jpg"
       />
 
       {/* 2. Mission & Vision (2-column) */}

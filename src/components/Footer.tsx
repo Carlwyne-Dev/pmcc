@@ -199,7 +199,7 @@ export default function Footer() {
       title: "Resources & News",
       links: [
         { label: "Global Announcements", href: "https://pmcc4thwatch.org", target: "_blank" },
-        { label: "Watch Live Broadcasts", href: "https://youtube.com", target: "_blank", pulse: true },
+        { label: "Watch Live Broadcasts", href: "https://www.youtube.com/@pmcc4thwatchofficial", target: "_blank", pulse: true },
         { label: "Community Chapters", href: "https://pmcc4thwatch.org", target: "_blank" },
       ],
     },
@@ -209,8 +209,8 @@ export default function Footer() {
   const contactInfo = [
     {
       icon: <Mail size={16} className="text-yellow" />,
-      text: "info@pmcc4thwatch.org",
-      href: "mailto:info@pmcc4thwatch.org",
+      text: "pmcc4wpulup@gmail.com",
+      href: "mailto:pmcc4wpulup@gmail.com",
     },
     {
       icon: <Phone size={16} className="text-yellow" />,
@@ -225,8 +225,8 @@ export default function Footer() {
 
   // Social Links
   const socialLinks = [
-    { icon: <Facebook size={18} />, label: "Facebook", href: "https://facebook.com" },
-    { icon: <Youtube size={18} />, label: "YouTube", href: "https://youtube.com" },
+    { icon: <Facebook size={18} />, label: "Facebook", href: "https://www.facebook.com/people/PMCC-4th-Watch-Pulupandan-Young-Watchers/100066300444799/" },
+    { icon: <Youtube size={18} />, label: "YouTube", href: "https://www.youtube.com/@pmcc4thwatchofficial" },
   ];
 
   return (

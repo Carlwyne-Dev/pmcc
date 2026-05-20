@@ -25,6 +25,7 @@ export default function Navbar() {
 
   // Desktop Navigation Links
   const navLinks = [
+    { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Schedule", path: "/schedule" },
     { name: "Gallery", path: "/gallery" },
@@ -102,7 +103,7 @@ export default function Navbar() {
             {/* SOCIAL LINK ICONS (Highly visible on both Mobile & Desktop) */}
             <div className="flex items-center gap-4">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/people/PMCC-4th-Watch-Pulupandan-Young-Watchers/100066300444799/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/60 hover:text-yellow transition-colors duration-300 flex items-center justify-center p-1 focus:outline-none"
@@ -111,7 +112,7 @@ export default function Navbar() {
                 <Facebook size={16} />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://www.youtube.com/@pmcc4thwatchofficial"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white/60 hover:text-yellow transition-colors duration-300 flex items-center justify-center p-1 focus:outline-none"
@@ -139,7 +140,7 @@ export default function Navbar() {
         Floating modern capsule navigation mimicking a native luxury app experience!
       */}
       <div 
-        className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[420px] h-[4.2rem] bg-[#0A1128]/90 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_25px_50px_rgba(0,0,0,0.6)] z-50 flex items-center justify-around px-2 select-none"
+        className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[420px] h-[4.2rem] bg-[#0A1128]/90 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_25px_50px_rgba(0,0,0,0.6)] z-[999] flex items-center justify-around px-2 select-none"
       >
         {mobileLinks.map((link) => {
           const isActive = pathname === link.path;
