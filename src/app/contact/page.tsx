@@ -65,8 +65,9 @@ export default function Contact() {
       } else {
         setError("Failed to send message. Please verify your EmailJS keys.");
       }
-    } catch (err: any) {
-      setError(err?.text || "An unexpected error occurred while sending the email. Please verify your keys.");
+    } catch (err) {
+      const mailError = err as { text?: string };
+      setError(mailError?.text || "An unexpected error occurred while sending the email. Please verify your keys.");
     } finally {
       setLoading(false);
     }

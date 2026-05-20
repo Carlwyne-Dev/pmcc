@@ -8,7 +8,15 @@ import { Image as ImageIcon } from "lucide-react";
 
 type Category = "all" | "worship" | "youth" | "outreach" | "events";
 
-const GalleryCard = ({ item }: { item: any }) => {
+interface GalleryItem {
+  id: number;
+  title: string;
+  cat: string;
+  ratio: string;
+  images: string[];
+}
+
+const GalleryCard = ({ item }: { item: GalleryItem }) => {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -116,7 +124,7 @@ const GalleryCard = ({ item }: { item: any }) => {
             <div className="flex items-center gap-3">
               {item.images && (
                 <div className="flex items-center gap-1.5 bg-black/30 px-3 py-1.5 rounded-full backdrop-blur-sm">
-                  {item.images.map((_: any, i: number) => (
+                  {item.images.map((_: string, i: number) => (
                     <div key={i} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === idx ? 'bg-yellow scale-125' : 'bg-white/40'}`} />
                   ))}
                 </div>
