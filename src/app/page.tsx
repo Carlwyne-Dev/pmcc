@@ -701,19 +701,11 @@ export default function Home() {
       </section>
 
       {/* ==========================================
-         4. EVENTS SNAPSHOT (STICKY NOTES / CORK BOARD)
+         4. EVENTS SNAPSHOT (IMMERSIVE HIGHLIGHTS)
          ========================================== */}
-      <section className="py-28 border-b border-neutral-200/60 overflow-hidden relative"
-        style={{
-          background: "radial-gradient(ellipse at 60% 40%, #c8a97e 0%, #b8955e 40%, #a07848 100%)",
-        }}
-      >
-        {/* Cork texture overlay */}
-        <div className="absolute inset-0 opacity-[0.18] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='27' cy='3' r='0.8'/%3E%3Ccircle cx='47' cy='11' r='1.2'/%3E%3Ccircle cx='13' cy='23' r='0.6'/%3E%3Ccircle cx='37' cy='19' r='1'/%3E%3Ccircle cx='53' cy='31' r='0.8'/%3E%3Ccircle cx='3' cy='43' r='1'/%3E%3Ccircle cx='23' cy='51' r='0.6'/%3E%3Ccircle cx='43' cy='47' r='1.2'/%3E%3Ccircle cx='57' cy='57' r='0.8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+      <section className="py-28 bg-[#090e1a] border-b border-white/5 overflow-hidden relative">
+        {/* Subtle gold ambient glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow/5 rounded-full blur-[120px] pointer-events-none z-0" />
 
         <div className="max-w-[1300px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
           {/* Header */}
@@ -722,125 +714,91 @@ export default function Home() {
               <SectionTag theme="yellow">LATEST NOTICES</SectionTag>
             </Reveal>
             <Reveal delay={0.2}>
-              <h2 className="font-serif font-light text-3xl md:text-4xl lg:text-5xl tracking-tight text-white/90 uppercase mt-6 drop-shadow-sm">
+              <h2 className="font-serif font-light text-3xl md:text-4xl lg:text-5xl tracking-tight text-white uppercase mt-6">
                 Upcoming Highlights
               </h2>
             </Reveal>
           </div>
 
-          {/* Sticky Notes Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+          {/* Immersive Visual Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {[
               {
                 tags: ["WEEKLY", "WORSHIP"],
                 title: "Sunday Worship Service",
                 excerpt: "\"Come, let us bow down in worship, let us kneel before the Lord our Maker...\"",
                 time: "Every Sunday · 9 AM – 12 PM",
-                color: "#FEFCE8",
-                rotate: "-2.2deg",
-                pinColor: "#E53E3E",
-                offset: "lg:mt-0",
+                img: "/assets/worship.jpg",
               },
               {
                 tags: ["WEEKLY", "SCRIPTURE"],
                 title: "Bible Study",
                 excerpt: "\"Your word is a lamp for my feet, a light on my path...\"",
                 time: "Every Tuesday · 7 PM",
-                color: "#F0FDF4",
-                rotate: "1.8deg",
-                pinColor: "#2B6CB0",
-                offset: "lg:mt-8",
+                img: "/assets/gathering.jpg",
               },
               {
                 tags: ["YOUTH", "FELLOWSHIP"],
                 title: "Youth Service & Fellowship",
                 excerpt: "\"Don't let anyone look down on you because you are young...\"",
                 time: "Annual · TBA",
-                color: "#FFF5F5",
-                rotate: "-1.1deg",
-                pinColor: "#276749",
-                offset: "lg:mt-4",
+                img: "/assets/gallery_1.jpg",
               },
               {
                 tags: ["PRAYER", "MIDWEEK"],
                 title: "Midweek Prayer Meeting",
                 excerpt: "\"The prayer of a righteous person is powerful and effective...\"",
                 time: "Every Thursday · 7 PM",
-                color: "#FAF5FF",
-                rotate: "-1.7deg",
-                pinColor: "#E53E3E",
-                offset: "lg:mt-6",
+                img: "/assets/gallery_2.jpg",
               },
               {
                 tags: ["EVENTS", "SPECIAL"],
                 title: "Home Free Global Crusade Bacolod",
                 excerpt: "\"Go into all the world and preach the gospel to all creation...\"",
                 time: "Special Event",
-                color: "#FFFFF0",
-                rotate: "1.3deg",
-                pinColor: "#2B6CB0",
-                offset: "lg:-mt-2",
+                img: "/assets/homefree.jpg",
               },
             ].map((card, i) => (
               <Reveal key={card.title} delay={i * 0.07} yOffset={15}>
                 <motion.div
-                  whileHover={{ rotate: 0, y: -8, scale: 1.03 }}
+                  whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className={`relative cursor-pointer select-none ${card.offset}`}
-                  style={{
-                    rotate: card.rotate,
-                    transformOrigin: "top center",
-                  }}
+                  className="h-full min-h-[380px] relative rounded-2xl overflow-hidden border border-white/10 group cursor-pointer flex flex-col justify-end p-8 shadow-lg hover:shadow-[0_20px_40px_rgba(0,0,0,0.45)] transition-shadow duration-300"
                 >
-                  {/* Pushpin */}
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center">
-                    <div
-                      className="w-5 h-5 rounded-full border-2 border-white/60 shadow-md"
-                      style={{ background: card.pinColor }}
-                    />
-                    <div className="w-[3px] h-3 rounded-b-full bg-neutral-400/70 -mt-0.5" />
-                  </div>
+                  {/* Background Image */}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center select-none pointer-events-none transition-transform duration-700 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${card.img})` }}
+                  />
 
-                  {/* Note card */}
-                  <div
-                    className="rounded-sm p-6 pt-8"
-                    style={{
-                      background: card.color,
-                      boxShadow: "3px 6px 18px rgba(0,0,0,0.22), 0 2px 4px rgba(0,0,0,0.12)",
-                    }}
-                  >
-                    {/* Top ruled line like a notepad */}
-                    <div className="w-full h-[2px] bg-navy/8 mb-4 rounded-full" />
+                  {/* Dark gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#070b15] via-[#070b15]/85 to-transparent group-hover:from-[#05080f] group-hover:via-[#05080f]/75 transition-all duration-300 pointer-events-none z-10" />
 
+                  {/* Content */}
+                  <div className="relative z-20">
                     {/* Tags */}
-                    <div className="flex items-center gap-1 mb-3 flex-wrap">
+                    <div className="flex items-center gap-1 mb-4 flex-wrap">
                       {card.tags.map((tag, ti) => (
-                        <span key={tag} className="font-sans font-black text-[8px] tracking-widest uppercase text-navy/40">
-                          {tag}{ti < card.tags.length - 1 && <span className="ml-1 text-navy/20">|</span>}
+                        <span key={tag} className="font-sans font-black text-[9px] tracking-widest uppercase text-yellow/90">
+                          {tag}{ti < card.tags.length - 1 && <span className="ml-1 text-white/30">|</span>}
                         </span>
                       ))}
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-serif font-normal text-lg md:text-xl text-navy leading-snug mb-4">
+                    <h3 className="font-serif font-light text-2xl text-white leading-tight uppercase mb-3">
                       {card.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="font-sans text-[11px] text-navy/55 leading-relaxed italic mb-5">
+                    <p className="font-sans text-xs text-white/70 leading-relaxed italic mb-6">
                       {card.excerpt}
                     </p>
 
-                    {/* Ruled lines decoration */}
-                    <div className="space-y-2 mb-5 opacity-20">
-                      <div className="h-[1px] bg-navy/40 rounded" />
-                      <div className="h-[1px] bg-navy/40 rounded w-3/4" />
-                    </div>
-
-                    {/* Time */}
-                    <div className="flex items-center gap-2 text-[9px] font-sans font-extrabold tracking-widest uppercase text-navy/35">
-                      <Sun size={9} className="text-amber-500 shrink-0" />
-                      {card.time}
+                    {/* Time info */}
+                    <div className="flex items-center gap-2.5 text-[10px] font-sans font-extrabold tracking-widest uppercase text-yellow/90 pt-4 border-t border-white/10">
+                      <Sun size={11} className="text-yellow shrink-0" />
+                      <span>{card.time}</span>
                     </div>
                   </div>
                 </motion.div>
@@ -853,7 +811,7 @@ export default function Home() {
             <div className="text-center mt-20">
               <Link
                 href="/schedule"
-                className="font-sans font-extrabold text-[10px] tracking-widest uppercase text-white/60 hover:text-white transition-all duration-300 inline-flex items-center gap-2.5 border-b border-white/20 hover:border-white/60 pb-1.5"
+                className="font-sans font-extrabold text-[10px] tracking-widest uppercase text-white/60 hover:text-yellow transition-all duration-300 inline-flex items-center gap-2.5 border-b border-white/20 hover:border-yellow/40 pb-1.5"
               >
                 <span>View full schedule</span>
                 <ArrowRight size={13} />
