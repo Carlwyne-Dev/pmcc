@@ -19,41 +19,46 @@ interface GalleryItem {
 const GalleryCard = React.forwardRef<HTMLDivElement, { item: GalleryItem }>(
   ({ item }, ref) => {
   const [idx, setIdx] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-  useEffect(() => {
-    if (!item.images || item.images.length <= 1) return;
+  const paginate = (newDirection: number) => {
+    if (!item.images) return;
+    setDirection(newDirection);
+    setIdx((prev) => {
+      let nextIndex = prev + newDirection;
+      if (nextIndex < 0) nextIndex = item.images.length - 1;
+      if (nextIndex >= item.images.length) nextIndex = 0;
+      return nextIndex;
+    });
+  };
 
-    const checkIsMobile = () => {
-      return typeof window !== "undefined" && window.innerWidth < 768;
-    };
-
-    let intervalId: NodeJS.Timeout | null = null;
-
-    const startCycle = () => {
-      if (checkIsMobile()) {
-        intervalId = setInterval(() => {
-          setIdx((prev) => (prev + 1) % item.images.length);
-        }, 3500); // Cycle every 3.5 seconds
-      }
-    };
-
-    startCycle();
-
-    const handleResize = () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-      startCycle();
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [item.images]);
+  const swipeVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 30 : -30,
+      opacity: 0,
+      scale: 1.04,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 350, damping: 35 },
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.4 },
+      },
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 30 : -30,
+      opacity: 0,
+      scale: 0.96,
+      transition: {
+        x: { type: "spring", stiffness: 350, damping: 35 },
+        opacity: { duration: 0.3 },
+        scale: { duration: 0.4 },
+      },
+    }),
+  };
 
   return (
     <motion.div
@@ -78,9 +83,11 @@ const GalleryCard = React.forwardRef<HTMLDivElement, { item: GalleryItem }>(
             key={src}
             onClick={(e) => { 
               e.stopPropagation(); 
+              const newDir = i > idx ? 1 : -1;
+              setDirection(newDir);
               setIdx(i); 
             }}
-            className="absolute inset-0 m-auto w-full h-full cursor-pointer origin-bottom hover:!z-50"
+            className="hidden md:block absolute inset-0 m-auto w-full h-full cursor-pointer origin-bottom hover:!z-50"
             variants={{
                initial: { rotate: rotate * 0.1, x: 0, y: 0, scale: 0.95, opacity: 0 },
                animate: { rotate: rotate * 0.1, x: 0, y: 0, scale: 0.95, opacity: 1 },
@@ -101,15 +108,23 @@ const GalleryCard = React.forwardRef<HTMLDivElement, { item: GalleryItem }>(
       <div className="relative z-10 w-full h-full bg-surface rounded-large border border-navy/5 flex flex-col justify-between p-8 overflow-hidden shadow-premium">
         {item.images ? (
           <>
-            <AnimatePresence mode="wait">
+            <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={idx}
                 src={item.images[idx]}
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+                custom={direction}
+                variants={swipeVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                onPanEnd={(_e, info) => {
+                  if (info.offset.x < -40) {
+                    paginate(1);
+                  } else if (info.offset.x > 40) {
+                    paginate(-1);
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover z-0 touch-pan-y cursor-grab active:cursor-grabbing"
               />
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 pointer-events-none" />

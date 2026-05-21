@@ -140,7 +140,7 @@ export default function Navbar() {
         Floating modern capsule navigation mimicking a native luxury app experience!
       */}
       <div 
-        className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[420px] h-[4.2rem] bg-[#0A1128]/90 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_25px_50px_rgba(0,0,0,0.6)] z-[999] flex items-center justify-around px-2 select-none"
+        className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-[420px] h-[4.2rem] bg-gradient-to-t from-[#0A1128]/70 to-[#0A1128]/30 backdrop-blur-2xl backdrop-saturate-150 border border-white/20 rounded-full shadow-[0_16px_32px_rgba(0,0,0,0.4)] z-[999] flex items-center justify-around px-2 select-none"
       >
         {mobileLinks.map((link) => {
           const isActive = pathname === link.path;
