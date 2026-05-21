@@ -43,7 +43,7 @@ const GalleryCard = React.forwardRef<HTMLDivElement, { item: GalleryItem }>(
       opacity: 1,
       scale: 1,
       transition: {
-        x: { type: "spring", stiffness: 350, damping: 35 },
+        x: { type: "spring" as const, stiffness: 350, damping: 35 },
         opacity: { duration: 0.3 },
         scale: { duration: 0.4 },
       },
@@ -53,7 +53,7 @@ const GalleryCard = React.forwardRef<HTMLDivElement, { item: GalleryItem }>(
       opacity: 0,
       scale: 0.96,
       transition: {
-        x: { type: "spring", stiffness: 350, damping: 35 },
+        x: { type: "spring" as const, stiffness: 350, damping: 35 },
         opacity: { duration: 0.3 },
         scale: { duration: 0.4 },
       },
